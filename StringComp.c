@@ -4,26 +4,33 @@
 void pattern(char [],char []); //fucntion for detecting given pattern in strings
 main ()
 {
-  char p[50], s[3][100];
-  int i;
-  printf ("enter the main strings \n");
+char p[50];
+char in_name[800];
+    FILE *in_file;
+    char word[50];
 
-	//taking strings input
-	
-	for(i=0;i<=2;i++)
-	scanf("%s",&s[i]);
-	
-	//taking pattern string input
-	
-	printf ("enter the pattern \n");
+//---------------
+ printf("Enter file name:\n");
+    scanf("%s", in_name);
+
+    in_file = fopen(in_name, "r");
+   
+    printf ("enter the pattern :\n");
 	scanf (" %s", p);
-	
-	//calling pattern function for every string to detect pattern in it
-	
-	for(i=0;i<3;i++)
-	pattern(s[i],p);
+   
+    if (in_file == NULL)
+        printf("Can't open %s for reading.\n", in_name);
+    else
+    {
+    	printf("Your matching strings are :\n");
+    while (fscanf(in_file, "%s", word) != EOF)
+        {
+            pattern(word,p);
+        }
+        fclose(in_file);
+    }
+    return 0;
 }
-
 void pattern(char s[100],char p[10])
 {
 	int i,j,flag,ls,lp;
@@ -49,7 +56,7 @@ void pattern(char s[100],char p[10])
 			       if the pattern exists in the string*/
         	{
           	flag = 0;
-      	  	printf("string is %s\n",s);
+      	  	printf("%s\n",s);
           	break; /*to stop further checking in the string
 			 if the pattern is detected in it*/
         	}
